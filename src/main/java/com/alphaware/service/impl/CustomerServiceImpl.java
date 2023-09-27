@@ -7,6 +7,8 @@ import com.alphaware.service.dto.CustomerDTO;
 import com.alphaware.service.mapper.CustomerMapper;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -99,7 +101,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String generateReport(String format) throws FileNotFoundException, JRException {
-        String destinationFilePath = "E:\\Alphaware Work\\code\\customer-diginext\\src\\main\\resources\\reports";
+        String destinationFilePath = "C:\\Rushabh 19\\Jasper-Report\\code\\Jasper-Report\\Jasper-Report-Java\\src\\main\\resources\\reports\\";
+        
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss-");
+//        LocalDateTime now = LocalDateTime.now();
+//        String filePrefix = dtf.format(now).toString();
+//        String htmlFileName = filePrefix+"Datasheet.html";
+//        String pdfFileName = filePrefix+"Datasheet.pdf";
+        
         List<Customer> customerList = customerRepository.findAll();
 
         File file = ResourceUtils.getFile("classpath:DataSheet.jrxml");
@@ -112,10 +121,10 @@ public class CustomerServiceImpl implements CustomerService {
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, new JREmptyDataSource());
 
         if (format.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, destinationFilePath + "\\DataSheet.html");
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, destinationFilePath +"Datasheet.html");
         }
         if (format.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, destinationFilePath + "\\Datasheet.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, destinationFilePath +"Datasheet.pdf");
         }
         return "Report Generated at " + destinationFilePath;
     }

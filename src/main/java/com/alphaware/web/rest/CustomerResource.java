@@ -182,7 +182,7 @@ public class CustomerResource {
                 );
             }
             String result = customerService.generateReport(format);
-            successResponse = new SuccessResponse(HttpStatus.CREATED.value(), "Success", result);
+            successResponse = new SuccessResponse(HttpStatus.OK.value(), "Success", result);
         } catch (FileNotFoundException | JRException ex) {
             throw new ReportGenerationException(ex.getMessage());
         }
